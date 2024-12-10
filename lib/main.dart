@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:get_it_study/configurations.dart';
+import 'package:get_it_study/core/util/provider_logger.dart';
+import 'package:get_it_study/environment/app_init.dart';
+import 'package:get_it_study/router/router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-void main() {
-  configureDependencies();
-  runApp(const MainApp());
+void main() async {
+  AppInit.init();
+  runApp(ProviderScope(
+    observers: [ProviderLogger()],
+    child: const MainApp(),
+  ));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
+      routerConfig: ref.watch(routerProvider),
     );
   }
 }
