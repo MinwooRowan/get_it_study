@@ -1,4 +1,7 @@
+import 'package:get_it_study/di/configurations.dart';
+import 'package:get_it_study/domain/usecase/user_usecase.dart';
 import 'package:get_it_study/presentation/screen/home/home_screen.dart';
+import 'package:get_it_study/presentation/screen/home/viewmodel/home_viewmodel.dart';
 import 'package:get_it_study/presentation/screen/splash/root_screen.dart';
 import 'package:get_it_study/presentation/screen/splash/splash_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +13,7 @@ part 'router.g.dart';
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
   return GoRouter(
-    initialLocation: '/${SplashScreen.route}',
+    initialLocation: '/${HomeScreen.route}',
     routes: [
       GoRoute(
         path: '/',
@@ -26,7 +29,14 @@ GoRouter router(Ref ref) {
           GoRoute(
             path: HomeScreen.route,
             name: HomeScreen.route,
-            builder: (context, state) => HomeScreen(),
+            builder: (context, state) {
+              final HomeViewmodel homeViewmodel = HomeViewmodel(
+                userUsecase: getIt<UserUsecase>(),
+              );
+              homeViewmodel.getUserList.execute();
+
+              return HomeScreen(viewmodel: homeViewmodel);
+            },
             routes: [],
           ),
         ],

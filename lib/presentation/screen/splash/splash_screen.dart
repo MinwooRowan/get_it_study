@@ -5,9 +5,11 @@ class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('Splash'),
+    return Scaffold(
+      body: Container(
+        child: Center(
+          child: Text('Splash'),
+        ),
       ),
     );
   }

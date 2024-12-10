@@ -1,3 +1,4 @@
+import 'package:get_it_study/core/util/logger.dart';
 import 'package:get_it_study/core/util/result.dart';
 import 'package:get_it_study/data/model/user_model.dart';
 import 'package:get_it_study/domain/entity/user_entity.dart';
@@ -19,6 +20,7 @@ class UserUsecase {
         return UserEntity.fromModel(userModel);
       }).toList();
 
+      logger.d('User list: $userList');
       return Result.ok(userList);
     } else {
       return result as Error<List<UserEntity>>;

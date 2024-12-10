@@ -26,6 +26,7 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.lazySingleton<_i378.UserDatasource>(() => _i378.UserDatasource());
     gh.lazySingleton<_i707.UserRepository>(
       () => _i97.UserRepositoryImpl(userDatasource: gh<_i378.UserDatasource>()),
       dispose: (i) => i.dispose(),

@@ -21,6 +21,7 @@ class UserRepositoryImpl implements UserRepository {
         _cachedData[user.id] = user;
       }
     }
+
     return result;
   }
 
