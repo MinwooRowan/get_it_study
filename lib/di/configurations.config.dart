@@ -35,17 +35,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i378.UserDatasource>(() => _i378.UserDatasource());
     gh.lazySingleton<_i707.UserRepository>(
       () => _i97.UserRepositoryImpl(userDatasource: gh<_i378.UserDatasource>()),
-      instanceName: 'UserRepositoryImpl',
+      instanceName: 'LocalImpl',
       dispose: (i) => i.dispose(),
     );
-    gh.lazySingleton<_i291.UserUsecase>(() => _i291.UserUsecase(
-        gh<_i707.UserRepository>(instanceName: 'UserRepositoryImpl')));
     gh.lazySingleton<_i707.UserRepository>(
       () =>
           _i97.UserRepositoryImpl2(userDatasource: gh<_i378.UserDatasource>()),
-      instanceName: 'UserRepositoryImpl2',
+      instanceName: 'RemoteImpl',
       dispose: (i) => i.dispose(),
     );
+    gh.lazySingleton<_i291.UserUsecase>(() => _i291.UserUsecase(
+        gh<_i707.UserRepository>(instanceName: 'RemoteImpl')));
     gh.factoryParam<_i205.HomeViewmodel, int, dynamic>((
       id,
       _,

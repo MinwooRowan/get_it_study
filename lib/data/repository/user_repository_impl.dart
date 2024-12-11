@@ -4,7 +4,7 @@ import 'package:get_it_study/data/model/user_model.dart';
 import 'package:get_it_study/domain/repository/user_repository.dart';
 import 'package:injectable/injectable.dart';
 
-@Named('UserRepositoryImpl')
+@Named('LocalImpl')
 @LazySingleton(as: UserRepository)
 class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl({
@@ -33,7 +33,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 }
 
-@Named('UserRepositoryImpl2')
+@Named('RemoteImpl')
 @LazySingleton(as: UserRepository)
 class UserRepositoryImpl2 implements UserRepository {
   UserRepositoryImpl2({
