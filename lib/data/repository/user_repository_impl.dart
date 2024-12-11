@@ -1,11 +1,14 @@
+import 'package:get_it_study/core/util/logger.dart';
 import 'package:get_it_study/core/util/result.dart';
 import 'package:get_it_study/data/datasource/user_datasource.dart';
 import 'package:get_it_study/data/model/user_model.dart';
 import 'package:get_it_study/domain/repository/user_repository.dart';
 import 'package:injectable/injectable.dart';
 
-@Named('LocalImpl')
-@LazySingleton(as: UserRepository)
+@Injectable(
+  as: UserRepository,
+  env: ['dev', 'qa'],
+)
 class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl({
     required UserDatasource userDatasource,
@@ -16,6 +19,7 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<Result<List<UserModel>>> getUserList() async {
+    logger.d('DEV QA IMPLEMENTATION');
     final result = await _userDatasource.getUserList();
     if (result is Ok<List<UserModel>>) {
       for (final user in result.value) {
@@ -25,16 +29,12 @@ class UserRepositoryImpl implements UserRepository {
 
     return result;
   }
-
-  @override
-  @disposeMethod
-  void dispose() {
-    _cachedData.clear();
-  }
 }
 
-@Named('RemoteImpl')
-@LazySingleton(as: UserRepository)
+@Injectable(
+  as: UserRepository,
+  env: ['prod'],
+)
 class UserRepositoryImpl2 implements UserRepository {
   UserRepositoryImpl2({
     required UserDatasource userDatasource,
@@ -45,6 +45,7 @@ class UserRepositoryImpl2 implements UserRepository {
 
   @override
   Future<Result<List<UserModel>>> getUserList() async {
+    logger.d('PROD IMPLEMENTATION');
     final result = await _userDatasource.getUserList();
     if (result is Ok<List<UserModel>>) {
       for (final user in result.value) {
@@ -53,11 +54,5 @@ class UserRepositoryImpl2 implements UserRepository {
     }
 
     return result;
-  }
-
-  @override
-  @disposeMethod
-  void dispose() {
-    _cachedData.clear();
   }
 }

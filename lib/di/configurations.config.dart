@@ -19,6 +19,10 @@ import 'package:get_it_study/presentation/screen/home/viewmodel/home_viewmodel.d
     as _i205;
 import 'package:injectable/injectable.dart' as _i526;
 
+const String _prod = 'prod';
+const String _dev = 'dev';
+const String _qa = 'qa';
+
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
   _i174.GetIt init({
@@ -33,27 +37,41 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factoryAsync<_i578.AsyncUserRepository>(
         () => _i578.AsyncUserRepository.create());
     gh.lazySingleton<_i378.UserDatasource>(() => _i378.UserDatasource());
-    gh.lazySingleton<_i707.UserRepository>(
-      () => _i97.UserRepositoryImpl(userDatasource: gh<_i378.UserDatasource>()),
-      instanceName: 'LocalImpl',
-      dispose: (i) => i.dispose(),
-    );
-    gh.lazySingleton<_i707.UserRepository>(
+    gh.factory<_i707.UserRepository>(
       () =>
           _i97.UserRepositoryImpl2(userDatasource: gh<_i378.UserDatasource>()),
-      instanceName: 'RemoteImpl',
-      dispose: (i) => i.dispose(),
+      registerFor: {_prod},
     );
-    gh.lazySingleton<_i291.UserUsecase>(() => _i291.UserUsecase(
-        gh<_i707.UserRepository>(instanceName: 'RemoteImpl')));
-    gh.factoryParam<_i205.HomeViewmodel, int, dynamic>((
-      id,
-      _,
-    ) =>
-        _i205.HomeViewmodel(
-          userUsecase: gh<_i291.UserUsecase>(),
-          id: id,
-        ));
+    gh.factory<_i707.UserRepository>(
+      () => _i97.UserRepositoryImpl(userDatasource: gh<_i378.UserDatasource>()),
+      registerFor: {
+        _dev,
+        _qa,
+      },
+    );
+    gh.lazySingleton<_i291.UserUsecase>(
+      () => _i291.UserUsecase(gh<_i707.UserRepository>()),
+      registerFor: {
+        _prod,
+        _dev,
+        _qa,
+      },
+    );
+    gh.factoryParam<_i205.HomeViewmodel, int, dynamic>(
+      (
+        id,
+        _,
+      ) =>
+          _i205.HomeViewmodel(
+        userUsecase: gh<_i291.UserUsecase>(),
+        id: id,
+      ),
+      registerFor: {
+        _prod,
+        _dev,
+        _qa,
+      },
+    );
     return this;
   }
 }

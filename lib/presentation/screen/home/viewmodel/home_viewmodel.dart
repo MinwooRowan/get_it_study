@@ -6,7 +6,7 @@ import 'package:get_it_study/domain/entity/user_entity.dart';
 import 'package:get_it_study/domain/usecase/user_usecase.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable
+@Injectable(env: ['prod', 'dev', 'qa'])
 class HomeViewmodel extends ChangeNotifier {
   HomeViewmodel({
     required UserUsecase userUsecase,
