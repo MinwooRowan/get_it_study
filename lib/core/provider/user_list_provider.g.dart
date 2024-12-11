@@ -1,26 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'router.dart';
+part of 'user_list_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'ce01e9fad9d36c38381655429f263c4f49854833';
+String _$userListHash() => r'899e17047f8c4ba36d6b4873bd2391e9a85dba1f';
 
-/// See also [router].
-@ProviderFor(router)
-final routerProvider = Provider<GoRouter>.internal(
-  router,
-  name: r'routerProvider',
+/// See also [UserList].
+@ProviderFor(UserList)
+final userListProvider = NotifierProvider<UserList, List<UserEntity>>.internal(
+  UserList.new,
+  name: r'userListProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$routerHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$userListHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef RouterRef = ProviderRef<GoRouter>;
+typedef _$UserList = Notifier<List<UserEntity>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

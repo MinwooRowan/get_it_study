@@ -1,7 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/foundation.dart';
-
 import 'result.dart';
 
 typedef CommandAction0<T> = Future<Result<T>> Function();
@@ -20,7 +17,7 @@ typedef CommandAction1<T, A> = Future<Result<T>> Function(A);
 ///
 /// Consume the action result by listening to changes,
 /// then call to [clearResult] when the state is consumed.
-abstract class Command<T> extends ChangeNotifier {
+abstract class Command<T> {
   Command();
 
   bool _running = false;
@@ -42,7 +39,6 @@ abstract class Command<T> extends ChangeNotifier {
   /// Clear last action result
   void clearResult() {
     _result = null;
-    notifyListeners();
   }
 
   /// Internal execute implementation
@@ -55,13 +51,11 @@ abstract class Command<T> extends ChangeNotifier {
     // e.g. button shows loading state
     _running = true;
     _result = null;
-    notifyListeners();
 
     try {
       _result = await action();
     } finally {
       _running = false;
-      notifyListeners();
     }
   }
 }

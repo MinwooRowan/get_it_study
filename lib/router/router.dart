@@ -1,4 +1,6 @@
 import 'package:get_it_study/di/configurations.dart';
+import 'package:get_it_study/presentation/screen/comb/comb_screen.dart';
+import 'package:get_it_study/presentation/screen/comb/viewmodel/comb_viewmodel.dart';
 import 'package:get_it_study/presentation/screen/home/home_screen.dart';
 import 'package:get_it_study/presentation/screen/home/viewmodel/home_viewmodel.dart';
 import 'package:get_it_study/presentation/screen/splash/root_screen.dart';
@@ -37,6 +39,16 @@ GoRouter router(Ref ref) {
               viewmodel.getUserList.execute();
 
               return HomeScreen(viewmodel: viewmodel);
+            },
+            routes: [],
+          ),
+          GoRoute(
+            path: CombScreen.route,
+            name: CombScreen.route,
+            builder: (context, state) {
+              final CombViewmodel viewmodel = getIt<CombViewmodel>(param1: ref);
+
+              return CombScreen(viewmodel: viewmodel);
             },
             routes: [],
           ),
