@@ -4,14 +4,18 @@ import 'package:get_it_study/core/util/logger.dart';
 import 'package:get_it_study/core/util/result.dart';
 import 'package:get_it_study/domain/entity/user_entity.dart';
 import 'package:get_it_study/domain/usecase/user_usecase.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class HomeViewmodel extends ChangeNotifier {
   HomeViewmodel({
     required UserUsecase userUsecase,
+    @factoryParam required this.id,
   }) : _userUsecase = userUsecase {
     getUserList = Command0(_getUserList);
   }
   final UserUsecase _userUsecase;
+  final int id;
 
   late final Command0<List<UserEntity>> getUserList;
   final List<String> _userList = [];

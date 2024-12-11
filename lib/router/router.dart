@@ -1,5 +1,4 @@
 import 'package:get_it_study/di/configurations.dart';
-import 'package:get_it_study/domain/usecase/user_usecase.dart';
 import 'package:get_it_study/presentation/screen/home/home_screen.dart';
 import 'package:get_it_study/presentation/screen/home/viewmodel/home_viewmodel.dart';
 import 'package:get_it_study/presentation/screen/splash/root_screen.dart';
@@ -30,12 +29,14 @@ GoRouter router(Ref ref) {
             path: HomeScreen.route,
             name: HomeScreen.route,
             builder: (context, state) {
-              final HomeViewmodel homeViewmodel = HomeViewmodel(
-                userUsecase: getIt<UserUsecase>(),
-              );
-              homeViewmodel.getUserList.execute();
+              // final HomeViewmodel homeViewmodel = HomeViewmodel(
+              //   userUsecase: getIt<UserUsecase>(),
+              // );
+              // homeViewmodel.getUserList.execute();
+              final HomeViewmodel viewmodel = getIt<HomeViewmodel>(param1: 1);
+              viewmodel.getUserList.execute();
 
-              return HomeScreen(viewmodel: homeViewmodel);
+              return HomeScreen(viewmodel: viewmodel);
             },
             routes: [],
           ),

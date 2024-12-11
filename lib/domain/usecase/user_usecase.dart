@@ -5,11 +5,10 @@ import 'package:get_it_study/domain/entity/user_entity.dart';
 import 'package:get_it_study/domain/repository/user_repository.dart';
 import 'package:injectable/injectable.dart';
 
-@lazySingleton
+@LazySingleton()
 class UserUsecase {
-  UserUsecase({
-    required UserRepository userRepository,
-  }) : _userRepository = userRepository;
+  UserUsecase(@Named('UserRepositoryImpl') UserRepository repository)
+      : _userRepository = repository;
   final UserRepository _userRepository;
 
   Future<Result<List<UserEntity>>> getUserList() async {
