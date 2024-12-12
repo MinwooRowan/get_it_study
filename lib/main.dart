@@ -5,7 +5,7 @@ import 'package:get_it_study/router/router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() async {
-  AppInit.init();
+  await AppInit.init();
   runApp(ProviderScope(
     observers: [ProviderLogger()],
     child: const MainApp(),

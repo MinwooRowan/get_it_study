@@ -30,12 +30,42 @@ android {
         versionName = flutter.versionName
     }
 
+    flavorDimensions "env"
+    productFlavors {
+        dev {
+            dimension "env"
+            applicationId "com.example.get_it_study"  
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "Get It Study Dev"
+        }
+
+        qa {
+            dimension "env"
+            applicationId "com.example.get_it_study"
+            applicationIdSuffix ".qa"
+            resValue "string", "app_name", "Get It Study QA"
+
+        }
+
+        prod {
+            dimension "env"
+            applicationId "com.example.get_it_study"
+            resValue "string", "app_name", "Get It Study"
+    
+        }
+    }
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
         }
+    }
+        // BuildConfig 접근을 위해 필요함.
+    buildFeatures {
+        buildConfig = true
+        viewBinding true
+        dataBinding true
     }
 }
 
