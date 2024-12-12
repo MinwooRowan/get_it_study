@@ -9,12 +9,12 @@ import 'package:injectable/injectable.dart';
 @Injectable(env: ['prod', 'dev', 'qa'])
 class TestViewModel extends ChangeNotifier {
   TestViewModel({
-    required UserUsecase userUsecase,
+    required UserUseCase userUsecase,
     @factoryParam required this.id,
   }) : _userUsecase = userUsecase {
     getUserList = Command0(_getUserList);
   }
-  final UserUsecase _userUsecase;
+  final UserUseCase _userUsecase;
   final int id;
 
   late final Command0<List<UserEntity>> getUserList;

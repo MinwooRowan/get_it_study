@@ -1,4 +1,5 @@
 import 'package:get_it_study/core/util/result.dart';
+import 'package:get_it_study/data/model/user_detail_model.dart';
 import 'package:get_it_study/data/model/user_model.dart';
 import 'package:injectable/injectable.dart';
 
@@ -35,5 +36,26 @@ class UserDatasource {
       ),
     ];
     return Result.ok(data);
+  }
+
+  Future<Result<UserDetailModel>> getUserDetail(int userId) async {
+    await Future.delayed(const Duration(seconds: 1));
+
+    final UserDetailModel data = UserDetailModel(
+      id: userId,
+      name: 'Song Minwoo',
+      age: 29,
+      address: 'Paju City',
+      phone: '123-456-7890',
+      company: 'Rowan',
+      email: 'minwoo@rowan.kr',
+      vios: 'vios://minwoo',
+    );
+    return Result.ok(data);
+  }
+
+  Future<Result<UserDetailModel>> getFailedUserDetailData(int userId) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return Result.error(Exception('유저 정보를 찾는데 실패했습니다.'));
   }
 }

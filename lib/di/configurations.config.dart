@@ -19,6 +19,8 @@ import 'package:get_it_study/presentation/screen/home/view_model/home_view_model
     as _i127;
 import 'package:get_it_study/presentation/screen/test/viewmodel/test_view_model.dart'
     as _i1014;
+import 'package:get_it_study/presentation/screen/user_detail/view_model/user_detail_view_model.dart'
+    as _i802;
 import 'package:hooks_riverpod/hooks_riverpod.dart' as _i275;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -41,40 +43,33 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i578.AsyncUserRepository.create());
     gh.lazySingleton<_i378.UserDatasource>(() => _i378.UserDatasource());
     gh.factory<_i707.UserRepository>(
-      () =>
-          _i97.UserRepositoryImpl2(userDatasource: gh<_i378.UserDatasource>()),
+      () => _i97.UserRepositoryProdImpl(
+          userDatasource: gh<_i378.UserDatasource>()),
       registerFor: {_prod},
     );
     gh.factory<_i707.UserRepository>(
-      () => _i97.UserRepositoryImpl(userDatasource: gh<_i378.UserDatasource>()),
+      () => _i97.UserRepositoryDevImpl(
+          userDatasource: gh<_i378.UserDatasource>()),
       registerFor: {
         _dev,
         _qa,
       },
     );
-    gh.lazySingleton<_i291.UserUsecase>(
-      () => _i291.UserUsecase(gh<_i707.UserRepository>()),
+    gh.lazySingleton<_i291.UserUseCase>(
+      () => _i291.UserUseCase(gh<_i707.UserRepository>()),
       registerFor: {
         _prod,
         _dev,
         _qa,
       },
     );
-    gh.factoryParam<_i127.HomeViewModel, _i275.Ref<Object?>, dynamic>((
-      ref,
-      _,
-    ) =>
-        _i127.HomeViewModel(
-          ref,
-          gh<_i291.UserUsecase>(),
-        ));
     gh.factoryParam<_i1014.TestViewModel, int, dynamic>(
       (
         id,
         _,
       ) =>
           _i1014.TestViewModel(
-        userUsecase: gh<_i291.UserUsecase>(),
+        userUsecase: gh<_i291.UserUseCase>(),
         id: id,
       ),
       registerFor: {
@@ -83,6 +78,23 @@ extension GetItInjectableX on _i174.GetIt {
         _qa,
       },
     );
+    gh.factoryParam<_i802.UserDetailViewModel, _i275.Ref<Object?>, int>((
+      ref,
+      userId,
+    ) =>
+        _i802.UserDetailViewModel(
+          ref,
+          userId,
+          gh<_i291.UserUseCase>(),
+        ));
+    gh.factoryParam<_i127.HomeViewModel, _i275.Ref<Object?>, dynamic>((
+      ref,
+      _,
+    ) =>
+        _i127.HomeViewModel(
+          ref,
+          gh<_i291.UserUseCase>(),
+        ));
     return this;
   }
 }

@@ -10,12 +10,12 @@ import 'package:injectable/injectable.dart';
 class HomeViewModel extends CommonViewmodel {
   HomeViewModel(
     @factoryParam super.ref,
-    UserUsecase userUsecase,
+    UserUseCase userUsecase,
   ) : _userUsecase = userUsecase {
     getUserList = Command0(_getUserList);
   }
 
-  final UserUsecase _userUsecase;
+  final UserUseCase _userUsecase;
   late final Command0<List<UserEntity>> getUserList;
 
   Future<Result<List<UserEntity>>> _getUserList() async {

@@ -1,10 +1,13 @@
 import 'package:get_it_study/di/configurations.dart';
+import 'package:get_it_study/presentation/screen/error/error_screen.dart';
 import 'package:get_it_study/presentation/screen/home/home_screen.dart';
 import 'package:get_it_study/presentation/screen/home/view_model/home_view_model.dart';
 import 'package:get_it_study/presentation/screen/test/test_screen.dart';
 import 'package:get_it_study/presentation/screen/test/viewmodel/test_view_model.dart';
 import 'package:get_it_study/presentation/screen/splash/root_screen.dart';
 import 'package:get_it_study/presentation/screen/splash/splash_screen.dart';
+import 'package:get_it_study/presentation/screen/user_detail/user_detail_screen.dart';
+import 'package:get_it_study/presentation/screen/user_detail/view_model/user_detail_view_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -46,7 +49,26 @@ GoRouter router(Ref ref) {
 
               return HomeScreen(viewModel: viewmodel);
             },
-            routes: [],
+            routes: [
+              GoRoute(
+                path: '${HomeScreen.route}/:id',
+                name: UserDetailScreen.route,
+                builder: (context, state) {
+                  final int? id = int.tryParse(state.pathParameters['id'] ?? '');
+                  if (id == null) {
+                    return ErrorScreen();
+                  }
+
+                  final UserDetailViewModel viewmodel = getIt<UserDetailViewModel>(
+                    param1: ref,
+                    param2: id,
+                  );
+                  viewmodel.getUserDetail.execute(id);
+                  return UserDetailScreen(viewModel: viewmodel);
+                },
+                routes: [],
+              ),
+            ],
           ),
         ],
       ),
