@@ -15,10 +15,10 @@ import 'package:get_it_study/data/repository/async_user_repository.dart'
 import 'package:get_it_study/data/repository/user_repository_impl.dart' as _i97;
 import 'package:get_it_study/domain/repository/user_repository.dart' as _i707;
 import 'package:get_it_study/domain/usecase/user_usecase.dart' as _i291;
-import 'package:get_it_study/presentation/screen/comb/viewmodel/comb_viewmodel.dart'
-    as _i517;
-import 'package:get_it_study/presentation/screen/home/viewmodel/home_viewmodel.dart'
-    as _i205;
+import 'package:get_it_study/presentation/screen/home/view_model/home_view_model.dart'
+    as _i127;
+import 'package:get_it_study/presentation/screen/test/viewmodel/test_view_model.dart'
+    as _i1014;
 import 'package:hooks_riverpod/hooks_riverpod.dart' as _i275;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -60,20 +60,20 @@ extension GetItInjectableX on _i174.GetIt {
         _qa,
       },
     );
-    gh.factoryParam<_i517.CombViewmodel, _i275.Ref<Object?>, dynamic>((
+    gh.factoryParam<_i127.HomeViewModel, _i275.Ref<Object?>, dynamic>((
       ref,
       _,
     ) =>
-        _i517.CombViewmodel(
+        _i127.HomeViewModel(
           ref,
           gh<_i291.UserUsecase>(),
         ));
-    gh.factoryParam<_i205.HomeViewmodel, int, dynamic>(
+    gh.factoryParam<_i1014.TestViewModel, int, dynamic>(
       (
         id,
         _,
       ) =>
-          _i205.HomeViewmodel(
+          _i1014.TestViewModel(
         userUsecase: gh<_i291.UserUsecase>(),
         id: id,
       ),

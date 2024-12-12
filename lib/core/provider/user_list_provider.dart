@@ -6,32 +6,63 @@ part 'user_list_provider.g.dart';
 @Riverpod(keepAlive: true)
 class UserList extends _$UserList {
   @override
-  List<UserEntity> build() {
-    return [];
+  AsyncValue<List<UserEntity>> build() {
+    return AsyncLoading();
   }
 
   void setUserList(List<UserEntity> userList) {
-    state = userList;
+    state = AsyncData(userList);
   }
 
   void addUser(UserEntity user) {
-    state = [...state, user];
+    if (state is AsyncError) {
+      return;
+    }
+
+    if (state is AsyncLoading) {
+      state = AsyncData([user]);
+      return;
+    }
+
+    final List<UserEntity> data = state.value ?? [];
+
+    state = AsyncData([...data, user]);
   }
 
   void removeUser(UserEntity user) {
-    state = state.where((UserEntity element) => element.id != user.id).toList();
+    if (state is AsyncError) {
+      return;
+    }
+
+    if (state is AsyncLoading) {
+      return;
+    }
+
+    final List<UserEntity> data = state.value ?? [];
+
+    state = AsyncData(data.where((UserEntity element) => element.id != user.id).toList());
   }
 
   void updateUser(UserEntity user) {
-    state = state.map((UserEntity element) {
+    if (state is AsyncError) {
+      return;
+    }
+
+    if (state is AsyncLoading) {
+      return;
+    }
+
+    final List<UserEntity> data = state.value ?? [];
+
+    state = AsyncData(data.map((UserEntity element) {
       if (element.id == user.id) {
         return user;
       }
       return element;
-    }).toList();
+    }).toList());
   }
 
   void clear() {
-    state = [];
+    state = AsyncLoading();
   }
 }

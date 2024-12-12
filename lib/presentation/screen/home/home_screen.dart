@@ -1,65 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:get_it_study/presentation/screen/comb/comb_screen.dart';
-
-import 'package:get_it_study/presentation/screen/home/viewmodel/home_viewmodel.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get_it_study/core/provider/user_list_provider.dart';
+import 'package:get_it_study/domain/entity/user_entity.dart';
+import 'package:get_it_study/presentation/screen/home/view_model/home_view_model.dart';
+import 'package:get_it_study/presentation/widget/base/base_screen.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomeScreen extends HookConsumerWidget {
+class HomeScreen extends BaseScreen {
+  final HomeViewModel viewModel;
+  static const String route = 'home';
   const HomeScreen({
     super.key,
-    required this.viewmodel,
+    required this.viewModel,
   });
-  final HomeViewmodel viewmodel;
-  static const String route = 'home';
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home Screen'),
-        automaticallyImplyLeading: false,
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    context.goNamed(CombScreen.route);
-                  },
-                  child: Text('GOTO COMB')),
-              ListenableBuilder(
-                listenable: viewmodel,
-                builder: (BuildContext context, Widget? child) {
-                  return viewmodel.getUserList.running
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Column(
-                          children: [
-                            Text('LENGTH : ${viewmodel.userList.length}'),
-                            SizedBox(height: 16),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: viewmodel.userList.map((String name) {
-                                return Text(
-                                  name,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                          ],
-                        );
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
+    return ref.watch(userListProvider).when(
+          data: (List<UserEntity> data) {
+            return Column(
+              children: data
+                  .map(
+                    (UserEntity user) => ListTile(
+                      title: Text(user.name),
+                      subtitle: Text(user.id.toString()),
+                    ),
+                  )
+                  .toList(),
+            );
+          },
+          error: (error, stackTrace) {
+            return Center(child: Text('Error: $error'));
+          },
+          loading: () => Center(child: CircularProgressIndicator()),
+        );
   }
 }

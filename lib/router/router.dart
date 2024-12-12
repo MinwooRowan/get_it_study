@@ -1,8 +1,8 @@
 import 'package:get_it_study/di/configurations.dart';
-import 'package:get_it_study/presentation/screen/comb/comb_screen.dart';
-import 'package:get_it_study/presentation/screen/comb/viewmodel/comb_viewmodel.dart';
 import 'package:get_it_study/presentation/screen/home/home_screen.dart';
-import 'package:get_it_study/presentation/screen/home/viewmodel/home_viewmodel.dart';
+import 'package:get_it_study/presentation/screen/home/view_model/home_view_model.dart';
+import 'package:get_it_study/presentation/screen/test/test_screen.dart';
+import 'package:get_it_study/presentation/screen/test/viewmodel/test_view_model.dart';
 import 'package:get_it_study/presentation/screen/splash/root_screen.dart';
 import 'package:get_it_study/presentation/screen/splash/splash_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -28,27 +28,23 @@ GoRouter router(Ref ref) {
             routes: [],
           ),
           GoRoute(
-            path: HomeScreen.route,
-            name: HomeScreen.route,
+            path: TestScreen.route,
+            name: TestScreen.route,
             builder: (context, state) {
-              // final HomeViewmodel homeViewmodel = HomeViewmodel(
-              //   userUsecase: getIt<UserUsecase>(),
-              // );
-              // homeViewmodel.getUserList.execute();
-              final HomeViewmodel viewmodel = getIt<HomeViewmodel>(param1: 1);
+              final TestViewModel viewmodel = getIt<TestViewModel>(param1: 1);
               viewmodel.getUserList.execute();
-
-              return HomeScreen(viewmodel: viewmodel);
+              return TestScreen(viewmodel: viewmodel);
             },
             routes: [],
           ),
           GoRoute(
-            path: CombScreen.route,
-            name: CombScreen.route,
+            path: HomeScreen.route,
+            name: HomeScreen.route,
             builder: (context, state) {
-              final CombViewmodel viewmodel = getIt<CombViewmodel>(param1: ref);
+              final HomeViewModel viewmodel = getIt<HomeViewModel>(param1: ref);
+              viewmodel.getUserList.execute();
 
-              return CombScreen(viewmodel: viewmodel);
+              return HomeScreen(viewModel: viewmodel);
             },
             routes: [],
           ),

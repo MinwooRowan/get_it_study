@@ -45,3 +45,14 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: Pretendard
+      fonts:
+        - asset: assets/fonts/PretendardVariable.ttf
+    - family: Jalnan
+      fonts:
+        - asset: assets/fonts/JalnanTTF.ttf
+    - family: JalnanGothic
+      fonts:
+        - asset: assets/fonts/JalnanGothicTTF.ttf
