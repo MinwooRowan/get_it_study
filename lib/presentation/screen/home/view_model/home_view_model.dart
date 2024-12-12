@@ -3,8 +3,8 @@ import 'package:get_it_study/core/provider/user_list_provider.dart';
 import 'package:get_it_study/core/util/command.dart';
 import 'package:get_it_study/core/util/logger.dart';
 import 'package:get_it_study/core/util/result.dart';
-import 'package:get_it_study/domain/entity/user_entity.dart';
-import 'package:get_it_study/domain/usecase/user_usecase.dart';
+import 'package:get_it_study/domain/entity/user/user_entity.dart';
+import 'package:get_it_study/domain/usecase/user/user_use_case.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable

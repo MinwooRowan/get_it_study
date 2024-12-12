@@ -1,9 +1,9 @@
 import 'package:get_it_study/core/util/result.dart';
 import 'package:get_it_study/data/datasource/local/save_user_data_source.dart';
-import 'package:get_it_study/data/datasource/remote/user_data_source.dart';
-import 'package:get_it_study/data/model/user_detail_model.dart';
-import 'package:get_it_study/data/model/user_model.dart';
-import 'package:get_it_study/domain/repository/user_repository.dart';
+import 'package:get_it_study/data/datasource/remote/user/user_data_source.dart';
+import 'package:get_it_study/data/model/user/user_detail_model.dart';
+import 'package:get_it_study/data/model/user/user_model.dart';
+import 'package:get_it_study/domain/repository/user/user_repository.dart';
 import 'package:injectable/injectable.dart';
 
 @Singleton(

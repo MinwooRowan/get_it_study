@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get_it_study/domain/entity/user_detail_entity.dart';
+import 'package:get_it_study/domain/entity/user/user_detail_entity.dart';
 import 'package:get_it_study/presentation/screen/home/home_screen.dart';
 import 'package:get_it_study/presentation/screen/user_detail/provider/user_detail_provider.dart';
 import 'package:get_it_study/presentation/screen/user_detail/view_model/user_detail_view_model.dart';

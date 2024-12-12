@@ -11,15 +11,25 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:get_it_study/data/datasource/local/save_user_data_source.dart'
     as _i940;
-import 'package:get_it_study/data/datasource/remote/user_data_source.dart'
-    as _i923;
-import 'package:get_it_study/data/repository/async_user_repository.dart'
-    as _i578;
-import 'package:get_it_study/data/repository/user_repository_impl.dart' as _i97;
-import 'package:get_it_study/domain/repository/user_repository.dart' as _i707;
-import 'package:get_it_study/domain/usecase/user_usecase.dart' as _i291;
+import 'package:get_it_study/data/datasource/remote/learning/learning_data_source.dart'
+    as _i234;
+import 'package:get_it_study/data/datasource/remote/user/user_data_source.dart'
+    as _i234;
+import 'package:get_it_study/data/repository/learning/learning_repository_impl.dart'
+    as _i798;
+import 'package:get_it_study/data/repository/user/user_repository_impl.dart'
+    as _i307;
+import 'package:get_it_study/domain/repository/learning/learning_repository.dart'
+    as _i423;
+import 'package:get_it_study/domain/repository/user/user_repository.dart'
+    as _i218;
+import 'package:get_it_study/domain/usecase/learning/learning_use_case.dart'
+    as _i888;
+import 'package:get_it_study/domain/usecase/user/user_use_case.dart' as _i82;
 import 'package:get_it_study/presentation/screen/home/view_model/home_view_model.dart'
     as _i127;
+import 'package:get_it_study/presentation/screen/learning/view_model/content_guide_view_model.dart'
+    as _i697;
 import 'package:get_it_study/presentation/screen/user_detail/view_model/user_detail_view_model.dart'
     as _i802;
 import 'package:hooks_riverpod/hooks_riverpod.dart' as _i275;
@@ -40,35 +50,47 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.factoryAsync<_i578.AsyncUserRepository>(
-        () => _i578.AsyncUserRepository.create());
     gh.singleton<_i940.LocalUserDataSource>(() => _i940.LocalUserDataSource());
-    gh.singleton<_i923.UserDataSource>(() => _i923.UserDataSource());
-    gh.singleton<_i707.UserRepository>(
-      () => _i97.UserRepositoryDevImpl(
+    gh.singleton<_i234.UserDataSource>(() => _i234.UserDataSource());
+    gh.lazySingleton<_i234.LearningDataSource>(
+        () => _i234.LearningDataSource());
+    gh.singleton<_i218.UserRepository>(
+      () => _i307.UserRepositoryDevImpl(
         localUserDataSource: gh<_i940.LocalUserDataSource>(),
-        userDatasource: gh<_i923.UserDataSource>(),
+        userDatasource: gh<_i234.UserDataSource>(),
       ),
       registerFor: {
         _dev,
         _qa,
       },
     );
-    gh.singleton<_i707.UserRepository>(
-      () => _i97.UserRepositoryProdImpl(
-        localUserDataSource: gh<_i940.LocalUserDataSource>(),
-        userDatasource: gh<_i923.UserDataSource>(),
-      ),
-      registerFor: {_prod},
-    );
-    gh.singleton<_i291.UserUseCase>(
-      () => _i291.UserUseCase(gh<_i707.UserRepository>()),
+    gh.singleton<_i423.LearningRepository>(() => _i798.LearningRepositoryImpl(
+        learningDataSource: gh<_i234.LearningDataSource>()));
+    gh.singleton<_i82.UserUseCase>(
+      () => _i82.UserUseCase(gh<_i218.UserRepository>()),
       registerFor: {
         _prod,
         _dev,
         _qa,
       },
     );
+    gh.lazySingleton<_i888.LearningUseCase>(() => _i888.LearningUseCase(
+        learningRepository: gh<_i423.LearningRepository>()));
+    gh.singleton<_i218.UserRepository>(
+      () => _i307.UserRepositoryProdImpl(
+        localUserDataSource: gh<_i940.LocalUserDataSource>(),
+        userDatasource: gh<_i234.UserDataSource>(),
+      ),
+      registerFor: {_prod},
+    );
+    gh.factoryParam<_i697.ContentGuideViewModel, _i275.Ref<Object?>, dynamic>((
+      ref,
+      _,
+    ) =>
+        _i697.ContentGuideViewModel(
+          ref,
+          gh<_i888.LearningUseCase>(),
+        ));
     gh.factoryParam<_i802.UserDetailViewModel, _i275.Ref<Object?>, int>((
       ref,
       userId,
@@ -76,7 +98,7 @@ extension GetItInjectableX on _i174.GetIt {
         _i802.UserDetailViewModel(
           ref,
           userId,
-          gh<_i291.UserUseCase>(),
+          gh<_i82.UserUseCase>(),
         ));
     gh.factoryParam<_i127.HomeViewModel, _i275.Ref<Object?>, dynamic>((
       ref,
@@ -84,7 +106,7 @@ extension GetItInjectableX on _i174.GetIt {
     ) =>
         _i127.HomeViewModel(
           ref,
-          gh<_i291.UserUseCase>(),
+          gh<_i82.UserUseCase>(),
         ));
     return this;
   }

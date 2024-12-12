@@ -1,8 +1,8 @@
 import 'package:get_it_study/core/common/viewmodel/common_viewmodel.dart';
 import 'package:get_it_study/core/util/command.dart';
 import 'package:get_it_study/core/util/result.dart';
-import 'package:get_it_study/domain/entity/user_detail_entity.dart';
-import 'package:get_it_study/domain/usecase/user_usecase.dart';
+import 'package:get_it_study/domain/entity/user/user_detail_entity.dart';
+import 'package:get_it_study/domain/usecase/user/user_use_case.dart';
 import 'package:get_it_study/presentation/screen/user_detail/provider/user_detail_provider.dart';
 import 'package:injectable/injectable.dart';
 

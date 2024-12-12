@@ -1,6 +1,6 @@
 import 'package:get_it_study/core/util/result.dart';
-import 'package:get_it_study/data/model/user_detail_model.dart';
-import 'package:get_it_study/data/model/user_model.dart';
+import 'package:get_it_study/data/model/user/user_detail_model.dart';
+import 'package:get_it_study/data/model/user/user_model.dart';
 import 'package:injectable/injectable.dart';
 
 @singleton

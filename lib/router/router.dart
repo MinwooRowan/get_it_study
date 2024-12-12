@@ -1,7 +1,9 @@
 import 'package:get_it_study/di/configurations.dart';
-import 'package:get_it_study/presentation/screen/error/error_screen.dart';
+import 'package:get_it_study/presentation/screen/common/error_screen.dart';
 import 'package:get_it_study/presentation/screen/home/home_screen.dart';
 import 'package:get_it_study/presentation/screen/home/view_model/home_view_model.dart';
+import 'package:get_it_study/presentation/screen/learning/content_guide_screen.dart';
+import 'package:get_it_study/presentation/screen/learning/view_model/content_guide_view_model.dart';
 
 import 'package:get_it_study/presentation/screen/splash/root_screen.dart';
 import 'package:get_it_study/presentation/screen/splash/splash_screen.dart';
@@ -16,7 +18,7 @@ part 'router.g.dart';
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
   return GoRouter(
-    initialLocation: '/${HomeScreen.route}',
+    initialLocation: '/${ContentGuideScreen.route}',
     routes: [
       GoRoute(
         path: '/',
@@ -27,6 +29,17 @@ GoRouter router(Ref ref) {
             path: SplashScreen.route,
             name: SplashScreen.route,
             builder: (context, state) => SplashScreen(),
+            routes: [],
+          ),
+          GoRoute(
+            path: ContentGuideScreen.route,
+            name: ContentGuideScreen.route,
+            builder: (context, state) {
+              final ContentGuideViewModel viewModel = getIt<ContentGuideViewModel>(param1: ref);
+              viewModel.getCurrentRound.execute();
+
+              return ContentGuideScreen(viewModel: viewModel);
+            },
             routes: [],
           ),
           GoRoute(

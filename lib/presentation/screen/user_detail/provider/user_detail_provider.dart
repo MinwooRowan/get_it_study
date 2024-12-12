@@ -1,4 +1,4 @@
-import 'package:get_it_study/domain/entity/user_detail_entity.dart';
+import 'package:get_it_study/domain/entity/user/user_detail_entity.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'user_detail_provider.g.dart';
 

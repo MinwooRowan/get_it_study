@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it_study/core/provider/user_list_provider.dart';
-import 'package:get_it_study/domain/entity/user_entity.dart';
+import 'package:get_it_study/domain/entity/user/user_entity.dart';
 import 'package:get_it_study/presentation/screen/home/view_model/home_view_model.dart';
 import 'package:get_it_study/presentation/screen/user_detail/user_detail_screen.dart';
 import 'package:get_it_study/presentation/widget/base/base_screen.dart';
