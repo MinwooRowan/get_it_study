@@ -1,26 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'router.dart';
+part of 'favorite_list.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'1a792870ee38610de3acfbdac6e8b3bbe469e7e7';
+String _$favoriteListHash() => r'32760870d651b32658a5c7843b4d9bf7a18910ad';
 
-/// See also [router].
-@ProviderFor(router)
-final routerProvider = Provider<GoRouter>.internal(
-  router,
-  name: r'routerProvider',
+/// See also [FavoriteList].
+@ProviderFor(FavoriteList)
+final favoriteListProvider =
+    AutoDisposeNotifierProvider<FavoriteList, AsyncValue<List<int>>>.internal(
+  FavoriteList.new,
+  name: r'favoriteListProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$routerHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$favoriteListHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef RouterRef = ProviderRef<GoRouter>;
+typedef _$FavoriteList = AutoDisposeNotifier<AsyncValue<List<int>>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

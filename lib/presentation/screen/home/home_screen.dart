@@ -19,20 +19,37 @@ class HomeScreen extends BaseScreen {
     return ref.watch(userListProvider).when(
           data: (List<UserEntity> data) {
             return Column(
-              children: data
-                  .map(
-                    (UserEntity user) => InkWell(
-                      onTap: () => context.goNamed(
-                        UserDetailScreen.route,
-                        pathParameters: {'id': user.id.toString()},
-                      ),
-                      child: ListTile(
-                        title: Text(user.name),
-                        subtitle: Text(user.id.toString()),
-                      ),
-                    ),
-                  )
-                  .toList(),
+              children: [
+                Column(
+                  children: data
+                      .map(
+                        (UserEntity user) => InkWell(
+                          onTap: () => context.goNamed(
+                            UserDetailScreen.route,
+                            pathParameters: {'id': user.id.toString()},
+                          ),
+                          child: ListTile(
+                            title: Text(user.name),
+                            trailing: IconButton(
+                                onPressed: () async {
+                                  await viewModel.addFavorite.execute(user.id);
+                                },
+                                icon: Icon(
+                                  Icons.favorite_rounded,
+                                )),
+                            subtitle: Text(user.id.toString()),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    await viewModel.getFavoriteList.execute();
+                  },
+                  child: Text('Log Favorite'),
+                ),
+              ],
             );
           },
           error: (error, stackTrace) {

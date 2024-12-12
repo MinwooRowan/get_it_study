@@ -7,7 +7,7 @@ import 'package:get_it_study/domain/entity/user_entity.dart';
 import 'package:get_it_study/domain/repository/user_repository.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton(env: ['prod', 'dev', 'qa'])
+@Singleton(env: ['prod', 'dev', 'qa'])
 class UserUseCase {
   UserUseCase(UserRepository repository) : _userRepository = repository;
   final UserRepository _userRepository;
@@ -35,6 +35,26 @@ class UserUseCase {
       return Result.ok(userEntity);
     } else {
       return result as Error<UserDetailEntity>;
+    }
+  }
+
+  Future<Result<void>> addFavorite(int userId) async {
+    final Result<void> result = await _userRepository.saveUserIdList([userId]);
+
+    if (result is Ok<void>) {
+      return result;
+    } else {
+      return result;
+    }
+  }
+
+  Future<Result<List<int>>> getFavoriteList() async {
+    final Result<List<int>> result = await _userRepository.getUserIdList();
+
+    if (result is Ok<List<int>>) {
+      return result;
+    } else {
+      return result;
     }
   }
 }

@@ -28,18 +28,20 @@ class UserDetailScreen extends HookConsumerWidget {
         padding: const EdgeInsets.all(12.0),
         child: ref.watch(userDetailProvider).when(
               data: (UserDetailEntity detail) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text('Name: ${detail.name}'),
-                    SizedBox(height: 8),
-                    Text('Email: ${detail.email}'),
-                    SizedBox(height: 8),
-                    Text('Phone: ${detail.phone}'),
-                    SizedBox(height: 8),
-                    Text('Address: ${detail.address}')
-                  ],
+                return Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('Name: ${detail.name}'),
+                      SizedBox(height: 8),
+                      Text('Email: ${detail.email}'),
+                      SizedBox(height: 8),
+                      Text('Phone: ${detail.phone}'),
+                      SizedBox(height: 8),
+                      Text('Address: ${detail.address}')
+                    ],
+                  ),
                 );
               },
               error: (Object error, StackTrace? stackTrace) {

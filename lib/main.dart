@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() async {
   await AppInit.init();
+
   runApp(ProviderScope(
     observers: [ProviderLogger()],
     child: const MainApp(),

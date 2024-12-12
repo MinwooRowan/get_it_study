@@ -3,8 +3,8 @@ import 'package:get_it_study/data/model/user_detail_model.dart';
 import 'package:get_it_study/data/model/user_model.dart';
 import 'package:injectable/injectable.dart';
 
-@lazySingleton
-class UserDatasource {
+@singleton
+class UserDataSource {
   Future<Result<List<UserModel>>> getUserList() async {
     await Future.delayed(const Duration(seconds: 1));
 

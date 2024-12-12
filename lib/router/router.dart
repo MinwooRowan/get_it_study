@@ -2,8 +2,7 @@ import 'package:get_it_study/di/configurations.dart';
 import 'package:get_it_study/presentation/screen/error/error_screen.dart';
 import 'package:get_it_study/presentation/screen/home/home_screen.dart';
 import 'package:get_it_study/presentation/screen/home/view_model/home_view_model.dart';
-import 'package:get_it_study/presentation/screen/test/test_screen.dart';
-import 'package:get_it_study/presentation/screen/test/viewmodel/test_view_model.dart';
+
 import 'package:get_it_study/presentation/screen/splash/root_screen.dart';
 import 'package:get_it_study/presentation/screen/splash/splash_screen.dart';
 import 'package:get_it_study/presentation/screen/user_detail/user_detail_screen.dart';
@@ -31,23 +30,13 @@ GoRouter router(Ref ref) {
             routes: [],
           ),
           GoRoute(
-            path: TestScreen.route,
-            name: TestScreen.route,
-            builder: (context, state) {
-              final TestViewModel viewmodel = getIt<TestViewModel>(param1: 1);
-              viewmodel.getUserList.execute();
-              return TestScreen(viewmodel: viewmodel);
-            },
-            routes: [],
-          ),
-          GoRoute(
             path: HomeScreen.route,
             name: HomeScreen.route,
             builder: (context, state) {
-              final HomeViewModel viewmodel = getIt<HomeViewModel>(param1: ref);
-              viewmodel.getUserList.execute();
+              final HomeViewModel viewModel = getIt<HomeViewModel>(param1: ref);
+              viewModel.getUserList.execute();
 
-              return HomeScreen(viewModel: viewmodel);
+              return HomeScreen(viewModel: viewModel);
             },
             routes: [
               GoRoute(
@@ -64,6 +53,7 @@ GoRouter router(Ref ref) {
                     param2: id,
                   );
                   viewmodel.getUserDetail.execute(id);
+
                   return UserDetailScreen(viewModel: viewmodel);
                 },
                 routes: [],

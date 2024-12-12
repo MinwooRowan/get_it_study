@@ -1,20 +1,24 @@
 import 'package:get_it_study/core/util/result.dart';
-import 'package:get_it_study/data/datasource/user_datasource.dart';
+import 'package:get_it_study/data/datasource/local/save_user_data_source.dart';
+import 'package:get_it_study/data/datasource/remote/user_data_source.dart';
 import 'package:get_it_study/data/model/user_detail_model.dart';
 import 'package:get_it_study/data/model/user_model.dart';
 import 'package:get_it_study/domain/repository/user_repository.dart';
 import 'package:injectable/injectable.dart';
 
-@Injectable(
+@Singleton(
   as: UserRepository,
   env: ['dev', 'qa'],
 )
 class UserRepositoryDevImpl implements UserRepository {
   UserRepositoryDevImpl({
-    required UserDatasource userDatasource,
-  }) : _userDatasource = userDatasource;
+    required LocalUserDataSource localUserDataSource,
+    required UserDataSource userDatasource,
+  })  : _userDatasource = userDatasource,
+        _localUserDataSource = localUserDataSource;
 
-  final UserDatasource _userDatasource;
+  final UserDataSource _userDatasource;
+  final LocalUserDataSource _localUserDataSource;
   final Map<int, UserModel> _cachedData = {};
 
   @override
@@ -34,18 +38,31 @@ class UserRepositoryDevImpl implements UserRepository {
     final Result<UserDetailModel> result = await _userDatasource.getUserDetail(userId);
     return result;
   }
+
+  @override
+  Future<Result<List<int>>> getUserIdList() async {
+    return _localUserDataSource.getUserIdList();
+  }
+
+  @override
+  Future<Result<void>> saveUserIdList(List<int> id) async {
+    return _localUserDataSource.saveUserIdList(id: id);
+  }
 }
 
-@Injectable(
+@Singleton(
   as: UserRepository,
   env: ['prod'],
 )
 class UserRepositoryProdImpl implements UserRepository {
   UserRepositoryProdImpl({
-    required UserDatasource userDatasource,
-  }) : _userDatasource = userDatasource;
+    required LocalUserDataSource localUserDataSource,
+    required UserDataSource userDatasource,
+  })  : _userDatasource = userDatasource,
+        _localUserDataSource = localUserDataSource;
 
-  final UserDatasource _userDatasource;
+  final UserDataSource _userDatasource;
+  final LocalUserDataSource _localUserDataSource;
   final Map<int, UserModel> _cachedData = {};
 
   @override
@@ -64,5 +81,15 @@ class UserRepositoryProdImpl implements UserRepository {
   Future<Result<UserDetailModel>> getUserDetail(int userId) async {
     final Result<UserDetailModel> result = await _userDatasource.getUserDetail(userId);
     return result;
+  }
+
+  @override
+  Future<Result<List<int>>> getUserIdList() async {
+    return _localUserDataSource.getUserIdList();
+  }
+
+  @override
+  Future<Result<void>> saveUserIdList(List<int> id) async {
+    return _localUserDataSource.saveUserIdList(id: id);
   }
 }

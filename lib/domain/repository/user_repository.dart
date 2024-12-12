@@ -6,4 +6,8 @@ abstract class UserRepository {
   Future<Result<List<UserModel>>> getUserList();
 
   Future<Result<UserDetailModel>> getUserDetail(int userId);
+
+  Future<Result<void>> saveUserIdList(List<int> id);
+
+  Future<Result<List<int>>> getUserIdList();
 }
