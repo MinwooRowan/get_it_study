@@ -7,21 +7,22 @@ import 'package:get_it_study/presentation/screen/user_detail/provider/user_detai
 import 'package:injectable/injectable.dart';
 
 @injectable
-class UserDetailViewModel extends CommonViewmodel {
+class UserDetailViewModel extends CommonViewModel {
   UserDetailViewModel(
     @factoryParam super.ref,
     @factoryParam this.userId,
     UserUseCase userUsecase,
   ) : _userUsecase = userUsecase {
-    getUserDetail = Command1(_getUserDetail);
+    getUserDetail = AsyncCommand1(_getUserDetail);
   }
 
   final UserUseCase _userUsecase;
   final int userId;
-  late final Command1<UserDetailEntity, int> getUserDetail;
+  late final AsyncCommand1<UserDetailEntity, int> getUserDetail;
 
   Future<Result<UserDetailEntity>> _getUserDetail(int userId) async {
-    final Result<UserDetailEntity> result = await _userUsecase.getUserDetail(userId);
+    final Result<UserDetailEntity> result =
+        await _userUsecase.getUserDetail(userId);
 
     if (result is Ok<UserDetailEntity>) {
       ref.read(userDetailProvider.notifier).setUserDetail(result.value);

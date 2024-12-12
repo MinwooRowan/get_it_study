@@ -8,20 +8,20 @@ import 'package:get_it_study/domain/usecase/user/user_use_case.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class HomeViewModel extends CommonViewmodel {
+class HomeViewModel extends CommonViewModel {
   HomeViewModel(
     @factoryParam super.ref,
     UserUseCase userUsecase,
   ) : _userUsecase = userUsecase {
-    getUserList = Command0(_getUserList);
-    addFavorite = Command1(_addFavorite);
-    getFavoriteList = Command0(_getFavoriteList);
+    getUserList = AsyncCommand0(_getUserList);
+    addFavorite = AsyncCommand1(_addFavorite);
+    getFavoriteList = AsyncCommand0(_getFavoriteList);
   }
 
   final UserUseCase _userUsecase;
-  late final Command0<List<UserEntity>> getUserList;
-  late final Command1<void, int> addFavorite;
-  late final Command0<List<int>> getFavoriteList;
+  late final AsyncCommand0<List<UserEntity>> getUserList;
+  late final AsyncCommand1<void, int> addFavorite;
+  late final AsyncCommand0<List<int>> getFavoriteList;
 
   Future<Result<List<UserEntity>>> _getUserList() async {
     final Result<List<UserEntity>> result = await _userUsecase.getUserList();

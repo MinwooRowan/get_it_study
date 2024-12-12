@@ -28,6 +28,12 @@ import 'package:get_it_study/domain/usecase/learning/learning_use_case.dart'
 import 'package:get_it_study/domain/usecase/user/user_use_case.dart' as _i82;
 import 'package:get_it_study/presentation/screen/home/view_model/home_view_model.dart'
     as _i127;
+import 'package:get_it_study/presentation/screen/learning/content/deem_content/view_model/deem_content_view_model.dart'
+    as _i188;
+import 'package:get_it_study/presentation/screen/learning/content/game_content/view_model/game_content_view_model.dart'
+    as _i55;
+import 'package:get_it_study/presentation/screen/learning/content/video_content/view_model/video_content_view_model.dart'
+    as _i306;
 import 'package:get_it_study/presentation/screen/learning/view_model/content_guide_view_model.dart'
     as _i697;
 import 'package:get_it_study/presentation/screen/user_detail/view_model/user_detail_view_model.dart'
@@ -83,11 +89,35 @@ extension GetItInjectableX on _i174.GetIt {
       ),
       registerFor: {_prod},
     );
+    gh.factoryParam<_i55.GameContentViewModel, _i275.Ref<Object?>, dynamic>((
+      ref,
+      _,
+    ) =>
+        _i55.GameContentViewModel(
+          ref,
+          gh<_i888.LearningUseCase>(),
+        ));
     gh.factoryParam<_i697.ContentGuideViewModel, _i275.Ref<Object?>, dynamic>((
       ref,
       _,
     ) =>
         _i697.ContentGuideViewModel(
+          ref,
+          gh<_i888.LearningUseCase>(),
+        ));
+    gh.factoryParam<_i306.VideoContentViewModel, _i275.Ref<Object?>, dynamic>((
+      ref,
+      _,
+    ) =>
+        _i306.VideoContentViewModel(
+          ref,
+          gh<_i888.LearningUseCase>(),
+        ));
+    gh.factoryParam<_i188.DeemContentViewModel, _i275.Ref<Object?>, dynamic>((
+      ref,
+      _,
+    ) =>
+        _i188.DeemContentViewModel(
           ref,
           gh<_i888.LearningUseCase>(),
         ));

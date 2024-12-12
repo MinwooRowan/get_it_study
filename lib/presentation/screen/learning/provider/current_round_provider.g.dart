@@ -6,7 +6,7 @@ part of 'current_round_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentRoundHash() => r'18de3c4454dc5bb807b4ef0a045a1d87309ad222';
+String _$currentRoundHash() => r'da7659117c3adeaeee0728800212904c90a5e972';
 
 /// See also [CurrentRound].
 @ProviderFor(CurrentRound)

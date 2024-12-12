@@ -13,13 +13,19 @@ class LearningUseCase {
   final LearningRepository _learningRepository;
 
   Future<Result<RoundEntity>> getCurrentRound() async {
-    final Result<RoundModel> result = await _learningRepository.getCurrentRound();
+    final Result<RoundModel> result =
+        await _learningRepository.getCurrentRound();
 
     if (result is Ok<RoundModel>) {
-      final RoundEntity roundEntity = RoundEntity.fromJson(result.value.toJson());
+      final RoundEntity roundEntity =
+          RoundEntity.fromJson(result.value.toJson());
       return Result.ok(roundEntity);
     } else {
       return result as Error<RoundEntity>;
     }
+  }
+
+  Future<Result<void>> postContentComplete({required int id}) {
+    return _learningRepository.postContentComplete(id: id);
   }
 }

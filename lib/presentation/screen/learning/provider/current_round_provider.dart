@@ -21,4 +21,19 @@ class CurrentRound extends _$CurrentRound {
   void dispose() {
     state = AsyncLoading();
   }
+
+  void updateUnitComplete(int id) {
+    final RoundEntity currentRound = state.asData!.value;
+
+    final RoundEntity updateRound = currentRound.copyWith(
+      contentUnitList: currentRound.contentUnitList.map((unit) {
+        if (unit.id == id) {
+          return unit.copyWith(isCompleted: true);
+        }
+        return unit;
+      }).toList(),
+    );
+
+    state = AsyncData(updateRound);
+  }
 }

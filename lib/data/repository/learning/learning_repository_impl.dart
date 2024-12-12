@@ -16,4 +16,9 @@ class LearningRepositoryImpl extends LearningRepository {
   Future<Result<RoundModel>> getCurrentRound() {
     return _learningDataSource.getCurrentRound();
   }
+
+  @override
+  Future<Result<void>> postContentComplete({required int id}) {
+    return _learningDataSource.postContentComplete(id: id);
+  }
 }
