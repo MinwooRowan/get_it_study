@@ -3,6 +3,7 @@ import 'package:get_it_study/domain/entity/learning/content_unit_entity.dart';
 
 import 'package:get_it_study/domain/entity/learning/round_entity.dart';
 import 'package:get_it_study/presentation/screen/learning/provider/current_round_provider.dart';
+import 'package:get_it_study/presentation/screen/learning/view_model/content_guide_view_controller.dart';
 import 'package:get_it_study/presentation/screen/learning/view_model/content_guide_view_model.dart';
 import 'package:get_it_study/presentation/widget/base/base_screen.dart';
 import 'package:get_it_study/theme/color_stytle.dart';
@@ -43,9 +44,13 @@ class ContentGuideScreen extends BaseScreen {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
+                        String routeName = ref
+                            .read(contentGuideProvider.notifier)
+                            .getContentRouteName(
+                                type: currentSeqUnit.contentUnitType);
+
                         context.goNamed(
-                          viewModel.getContentRouteName(
-                              type: currentSeqUnit.contentUnitType),
+                          routeName,
                           pathParameters: {'id': currentSeqUnit.id.toString()},
                         );
                       },
